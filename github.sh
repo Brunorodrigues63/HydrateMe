@@ -19,10 +19,6 @@ echo "windows" >> .gitignore
 echo "macos" >> .gitignore
 echo "linux" >> .gitignore
 
-git init
-git checkout -b main
-git remote add origin $repositorio
-
 git config --global user.name $name
 git config --global user.email $email
 
