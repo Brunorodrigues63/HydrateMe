@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hydrate_me/backend/model/usuario.dart';
+import 'package:hydrate_me/backend/request/alterar_senha_request.dart';
 import 'package:hydrate_me/backend/request/calcular_request.dart';
+import 'package:hydrate_me/backend/request/gerar_chave_request.dart';
+import 'package:hydrate_me/backend/request/resetar_senha_request.dart';
 import 'package:hydrate_me/backend/response/calcular_response.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/retrofit.dart';
@@ -15,7 +18,7 @@ abstract class HydrateMeApi {
   @POST("/Usuario/login")
   Future<String> criarUsuario(@Body() Usuario usuario);
 
-  @GET("/Usuario/listar")
+  @GET("/consumo/listar")
   Future<List<Usuario>> listar();
 
   @DELETE("/Usuario/excluir/{id}")
@@ -23,6 +26,15 @@ abstract class HydrateMeApi {
 
   @POST("/Usuario/Calcular")
   Future<CalcularResponse> calcular(@Body() CalcularRequest request);
+
+  @PUT("alterar-senha")
+  Future<String> alterarSenha(@Body() AlterarSenhaRequest request);
+
+  @POST("gerar-chave-reset-senha")
+  Future<String> gerarChaveResetSenha(@Body() GerarChaveResetRequest request);
+  
+  @PUT("resetar-senha")
+  Future<String> resetarSenha(@Body() ResetarSenhaRequest request);
 }
 
 HydrateMeApi? _api;

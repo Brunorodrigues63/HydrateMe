@@ -10,15 +10,6 @@ export repositorio="https://github.com/Brunorodrigues63/HydrateMe.git";
 
 export branch_name="main"
 
-rm -Rf .git
-
-#add linux, mac and windows folders to gitignore
-echo "" >> .gitignore
-echo "#ignoring windows, macos and linux folders" >> .gitignore
-echo "windows" >> .gitignore
-echo "macos" >> .gitignore
-echo "linux" >> .gitignore
-
 git config --global user.name $name
 git config --global user.email $email
 
