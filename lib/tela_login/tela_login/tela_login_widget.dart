@@ -613,18 +613,7 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
                                         0.0, 30.0, 0.0, 0.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
-                                        context.pushNamed(
-                                          TelaCalculoWidget.routeName,
-                                          extra: <String, dynamic>{
-                                            kTransitionInfoKey: TransitionInfo(
-                                              hasTransition: true,
-                                              transitionType:
-                                                  PageTransitionType.fade,
-                                              duration:
-                                                  Duration(milliseconds: 0),
-                                            ),
-                                          },
-                                        );
+                                        _model.login(context);
                                       },
                                       text: 'Entrar',
                                       options: FFButtonOptions(

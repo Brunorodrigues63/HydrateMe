@@ -20,6 +20,34 @@ class _HydrateMeApi implements HydrateMeApi {
   final ParseErrorLogger? errorLogger;
 
   @override
+  Future<String> login(Credencial credencial) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(credencial.toJson());
+    final _options = _setStreamType<String>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/login',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<String>(_options);
+    late String _value;
+    try {
+      _value = _result.data!;
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<String> criarUsuario(Usuario usuario) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -30,7 +58,7 @@ class _HydrateMeApi implements HydrateMeApi {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/Usuario/login',
+            '/usuario/adicionar',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -40,6 +68,33 @@ class _HydrateMeApi implements HydrateMeApi {
     late String _value;
     try {
       _value = _result.data!;
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<ConsumoResponse> getConsumoDiario(String data) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'data': data};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<ConsumoResponse>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/consumo/diario',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ConsumoResponse _value;
+    try {
+      _value = ConsumoResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

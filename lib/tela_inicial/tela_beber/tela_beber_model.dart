@@ -11,14 +11,17 @@ class TelaBeberModel extends FlutterFlowModel<TelaBeberWidget> {
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for Slider widget.
-  double? sliderValue;
+  double? sliderValue = 10;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    sliderValue = 10;
+    textController.text = "10";
+  }
 
   @override
   void dispose() {

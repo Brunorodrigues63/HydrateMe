@@ -1,3 +1,9 @@
+import 'package:get_it/get_it.dart';
+import 'package:hydrate_me/backend/backend_exception.dart';
+import 'package:hydrate_me/backend/request/credencial.dart';
+import 'package:hydrate_me/services/auth_service.dart';
+import 'package:hydrate_me/services/login_service.dart';
+
 import '/flutter_flow/flutter_flow_radio_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -41,4 +47,37 @@ class TelaLoginModel extends FlutterFlowModel<TelaLoginWidget> {
 
   /// Additional helper methods.
   String? get radioButtonValue => radioButtonValueController?.value;
+
+  Future<void> login(BuildContext context) async {
+    try {
+      final loginService = GetIt.I<LoginService>();
+
+      await loginService.autentica(
+        Credencial(textController1.text, textController2.text),
+      );
+
+      if (GetIt.I<AuthService>().isLogado) {
+        //await loginService.getCurrentUserInfo();
+
+        if (context.mounted) {
+          context.pushNamed(
+            TelaInicialWidget.routeName,
+            extra: <String, dynamic>{
+              kTransitionInfoKey: const TransitionInfo(
+                hasTransition: true,
+                transitionType: PageTransitionType.fade,
+                duration: Duration(milliseconds: 0),
+              ),
+            },
+          );
+        }
+      }
+    } on BackendException catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Ocorreu um erro: ${e.message}")),
+        );
+      }
+    }
+  }
 }

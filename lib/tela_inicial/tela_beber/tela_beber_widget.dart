@@ -58,7 +58,7 @@ class _TelaBeberWidgetState extends State<TelaBeberWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'ML',
+                '${_model.sliderValue}ML',
                 style: FlutterFlowTheme.of(context).displayMedium.override(
                       font: GoogleFonts.interTight(
                         fontWeight: FlutterFlowTheme.of(context)
@@ -84,7 +84,7 @@ class _TelaBeberWidgetState extends State<TelaBeberWidget> {
                   child: Slider(
                     activeColor: Color(0xFF43AEF0),
                     inactiveColor: FlutterFlowTheme.of(context).alternate,
-                    min: 0.0,
+                    min: 10,
                     max: 10000.0,
                     value: _model.sliderValue ??= 0.0,
                     label: _model.sliderValue?.toStringAsFixed(2),

@@ -3,9 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:hydrate_me/backend/model/usuario.dart';
 import 'package:hydrate_me/backend/request/alterar_senha_request.dart';
 import 'package:hydrate_me/backend/request/calcular_request.dart';
+import 'package:hydrate_me/backend/request/credencial.dart';
 import 'package:hydrate_me/backend/request/gerar_chave_request.dart';
 import 'package:hydrate_me/backend/request/resetar_senha_request.dart';
 import 'package:hydrate_me/backend/response/calcular_response.dart';
+import 'package:hydrate_me/backend/response/consumo_response.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -15,8 +17,14 @@ part 'hydrate_me_api.g.dart';
 abstract class HydrateMeApi {
   factory HydrateMeApi(Dio dio, {String? baseUrl}) = _HydrateMeApi;
 
-  @POST("/Usuario/login")
+  @POST("/login")
+  Future<String> login(@Body() Credencial credencial);
+
+  @POST("/usuario/adicionar")
   Future<String> criarUsuario(@Body() Usuario usuario);
+
+  @GET("/consumo/diario")
+  Future<ConsumoResponse> getConsumoDiario(@Query("data") String data);
 
   @GET("/consumo/listar")
   Future<List<Usuario>> listar();
@@ -32,7 +40,7 @@ abstract class HydrateMeApi {
 
   @POST("gerar-chave-reset-senha")
   Future<String> gerarChaveResetSenha(@Body() GerarChaveResetRequest request);
-  
+
   @PUT("resetar-senha")
   Future<String> resetarSenha(@Body() ResetarSenhaRequest request);
 }
@@ -64,7 +72,7 @@ HydrateMeApi hydrateMe() {
       ),
     );
 
-    _api = HydrateMeApi(dio, baseUrl: "http://localhost:5111");
+    _api = HydrateMeApi(dio);
   }
 
   return _api!;

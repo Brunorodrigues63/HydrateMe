@@ -676,17 +676,7 @@ class _TelaCadastroWidgetState extends State<TelaCadastroWidget> {
                                 children: [
                                   FFButtonWidget(
                                     onPressed: () async {
-                                      context.pushNamed(
-                                        TelaCadastroRealizadoWidget.routeName,
-                                        extra: <String, dynamic>{
-                                          kTransitionInfoKey: TransitionInfo(
-                                            hasTransition: true,
-                                            transitionType:
-                                                PageTransitionType.fade,
-                                            duration: Duration(milliseconds: 0),
-                                          ),
-                                        },
-                                      );
+                                      _model.cadastrar(context);
                                     },
                                     text: 'Cadastrar',
                                     options: FFButtonOptions(
