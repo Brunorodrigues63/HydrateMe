@@ -8,7 +8,7 @@ import 'flutter_flow/flutter_flow_util.dart';
 
 void main() async {
   setupGetIt();
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized(); 
   GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
 
